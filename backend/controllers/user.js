@@ -1,7 +1,5 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-//const user = require("../models/user");
-//const crypto = require('crypto');
 const mailer = require("../middleware/mailer");
 const User = require("../models/user");
 const resetMail = require('../templates/reset')
