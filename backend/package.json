@@ -1,0 +1,19 @@
+{
+  "name": "licensing",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "generate-password": "^1.5.1",
+    "jsonwebtoken": "^8.2.1",
+    "moment": "^2.29.1",
+    "mongoose": "^5.1.2",
+    "mongoose-unique-validator": "^2.0.1",
+    "node-machine-id": "^1.1.12",
+    "nodejs-license-file": "^4.0.0",
+    "nodemailer": "^6.4.14",
+    "nodemon": "^2.0.6"
+  }
+}

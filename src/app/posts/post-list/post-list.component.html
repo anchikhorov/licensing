@@ -1,0 +1,50 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-accordion multi="true" *ngIf="posts.length > 0 && !isLoading">
+  <mat-expansion-panel *ngFor="let post of posts">
+    <mat-expansion-panel-header>
+      {{ post.orgname}}
+    </mat-expansion-panel-header>
+    <!-- <div class="post-image">
+      <img [src]="post.imagePath" [alt]="post.title">
+    </div> -->
+   <p></p>
+   <mat-label>Название организации:</mat-label>
+    <p>{{ post.orgname}}</p>
+
+    <mat-label>Email ответственного сотрудника:</mat-label>
+    <p>{{ post.email }}</p>
+
+    <mat-label>Контактное лицо:</mat-label>
+    <p>{{ post.firstname }} {{ post.lastname }}</p>
+
+    <!-- <p>{{ post.lastname }}</p> -->
+    <mat-label>Наименование ПО:</mat-label>
+    <p>{{ post.appname }}</p>
+
+    <mat-label>Версия ПО:</mat-label>
+    <p>{{ post.appversion }}</p>
+
+    <mat-label>Тип лицензии:</mat-label>
+    <p>{{ post.licversion }}</p>
+
+    <mat-label>Дата создания:</mat-label>
+    <p>{{ post.gendatetime }}</p>
+
+    <mat-label>Дата окончания:</mat-label>
+    <p>{{ post.expdate }}</p>
+
+    <mat-label>Host ID:</mat-label>
+    <p>{{ post.hostid }}</p>
+
+    <mat-label>Сгенерирована пользователем:</mat-label>
+    <p>{{ post.creator }}</p>
+    <!-- <mat-action-row *ngIf="userIsAuthenticated && userId === post.creator"> -->
+    <mat-action-row >
+      <a mat-button color="primary" [routerLink]="['/editlic', post.id]">ИЗМЕНИТЬ</a>
+      <button mat-button color="primary" (click)="onGetLic(post.id)">СКАЧАТЬ</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+<mat-paginator [length]="totalPosts" [pageSize]="postsPerPage" [pageSizeOptions]="pageSizeOptions"
+  (page)="onChangedPage($event)" *ngIf="posts.length > 0"></mat-paginator>
+<p class="info-text mat-body-1" *ngIf="posts.length <= 0 && !isLoading">Список лицензий пуст!</p>

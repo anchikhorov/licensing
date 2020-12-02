@@ -1,0 +1,35 @@
+<mat-toolbar color="primary">
+  <span>
+    <a *ngIf="userIsAuthenticated" routerLink="/liclist">Лицензии</a>
+    <a *ngIf="!userIsAuthenticated" routerLink="/auth/login">Лицензии</a>
+  </span>
+  <span class="spacer"></span>
+  <ul>
+    
+    <li *ngIf="userIsAuthenticated">
+      <a mat-button routerLink="/liclist" routerLinkActive="mat-accent">Список лицензий</a>
+    </li>
+    <li *ngIf="userIsAuthenticated">
+      <a mat-button routerLink="/create" routerLinkActive="mat-accent">Новая лицензия</a>
+    </li>
+    <li *ngIf="userIsAuthenticated">
+      <a mat-button routerLink="/customerlist" routerLinkActive="mat-accent">Список организаций</a>
+    </li>
+    <li *ngIf="userIsAuthenticated">
+      <a mat-button routerLink="/addcustomer" routerLinkActive="mat-accent">Добавить организацию</a>
+    </li>
+
+    <li *ngIf="userIsAuthenticated">
+      <a mat-button routerLink="/auth/change" routerLinkActive="mat-accent">Изменить пароль</a>
+    </li>
+    <li *ngIf="!userIsAuthenticated">
+      <a mat-button routerLink="/auth/reset" routerLinkActive="mat-accent">Забыли пароль?</a>
+    </li>
+    <li *ngIf="!userIsAuthenticated">
+      <a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent">Регистрация</a>
+    </li>
+    <li *ngIf="userIsAuthenticated">
+      <button mat-button (click)="onLogout()">Выйти</button>
+    </li>
+  </ul>
+</mat-toolbar>

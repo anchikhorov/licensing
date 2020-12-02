@@ -1,0 +1,78 @@
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form [formGroup]="form" (submit)="onSavePost()" *ngIf="!isLoading">
+    <!-- <mat-form-field>
+      <input matInput type="text" formControlName="orgname" placeholder="Наименование организации">
+      <mat-error *ngIf="form.get('orgname').invalid">Введите наименование организации.</mat-error>
+    </mat-form-field> -->
+
+    <mat-form-field appearance="fill">
+      <!-- <mat-label>Наименование организации</mat-label> -->
+        <mat-select (valueChange)="onUpdate($event)" placeholder="Наименование организации" formControlName="orgname" name="orgname">
+          <mat-option *ngFor="let customer of customers" [value]="customer.orgname">
+            {{customer.orgname}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('orgname').invalid">Выберите наименование организации.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput name="email" formControlName="email" placeholder="E-Mail" >
+      <mat-error *ngIf="form.get('email').invalid">Введите email.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="text" formControlName="firstname" placeholder="Имя ответственного сотрудника" >
+      <mat-error *ngIf="form.get('firstname').invalid">Введите имя сотрудника.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="text" formControlName="lastname" placeholder="Фамилия ответственного сотрудника">
+      <mat-error *ngIf="form.get('lastname').invalid">Введите фамилию сотрудника.</mat-error>
+    </mat-form-field>
+
+    <!-- <mat-form-field>
+      <input matInput type="text" formControlName="appname" placeholder="Наименование ПО">
+      <mat-error *ngIf="form.get('appname').invalid">Введите наименование ПО.</mat-error>
+    </mat-form-field> -->
+    <mat-form-field appearance="fill">
+      <mat-select  placeholder="Наименование ПО" formControlName="appname" name="appname">
+        <mat-option *ngFor="let appname of appnames" [value]="appname.value">
+          {{appname.value}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="form.get('appname').invalid">Выберите наименование ПО.</mat-error>
+  </mat-form-field>
+
+
+    <!-- <mat-form-field>
+      <input matInput type="text" formControlName="appversion" placeholder="Версия ПО">
+      <mat-error *ngIf="form.get('appversion').invalid">Введите версию ПО.</mat-error>
+    </mat-form-field> -->
+    <mat-form-field appearance="fill">
+    <mat-select placeholder="Версия ПО" formControlName="appversion" name="appversion">
+      <mat-option *ngFor="let appversion of appversions" [value]="appversion.value">
+        {{appversion.value}}
+    </mat-option>
+  </mat-select>
+  <mat-error *ngIf="form.get('appversion').invalid">Выберите версию ПО.</mat-error>
+</mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <!-- <mat-label>Тип лицензии</mat-label> -->
+        <mat-select placeholder="Тип лицензии" formControlName="licversion" name="licversion">
+          <mat-option *ngFor="let lictype of lictypes" [value]="lictype.value">
+            {{lictype.value}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('licversion').invalid">Выберите тип лицензии.</mat-error>
+    </mat-form-field>
+    
+    <mat-form-field>
+      <input matInput type="text" formControlName="hostid" placeholder="Host ID">
+      <mat-error *ngIf="form.get('hostid').invalid">Введите Host ID.</mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="accent" type="submit">Сгенерировать</button>
+  </form>
+</mat-card>

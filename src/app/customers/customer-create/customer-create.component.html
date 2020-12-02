@@ -1,0 +1,56 @@
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form [formGroup]="form" (submit)="onSaveCustomer()" *ngIf="!isLoading">
+    <mat-form-field>
+      <input matInput type="text" formControlName="orgname" placeholder="Наименование организации">
+      <mat-error *ngIf="form.get('orgname').invalid">Введите наименование организации.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-select placeholder="Страна" formControlName="country" name="country">
+          <mat-option *ngFor="let country of countryes" [value]="country.value">
+            {{country.value}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('country').invalid">Выберите страну.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="text" formControlName="firstname" placeholder="Имя ответственного сотрудника">
+      <mat-error *ngIf="form.get('firstname').invalid">Введите имя сотрудника.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="text" formControlName="lastname" placeholder="Фамилия ответственного сотрудника">
+      <mat-error *ngIf="form.get('lastname').invalid">Введите фамилию сотрудника.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput name="email" formControlName="email" placeholder="E-Mail">
+      <mat-error *ngIf="form.get('email').invalid">Введите email.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="text" formControlName="locality" placeholder="Название населённого пункта">
+      <mat-error *ngIf="form.get('locality').invalid">Название населённого пункта например г. Москва.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="text" formControlName="street" placeholder="Улица">
+      <mat-error *ngIf="form.get('street').invalid">Введите улицу.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="text" formControlName="house" placeholder="Дом">
+      <mat-error *ngIf="form.get('house').invalid">Введите номер дома.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="text" formControlName="phone" placeholder="Телефон">
+      <mat-error *ngIf="form.get('phone').invalid">Введите номер телефона.</mat-error>
+    </mat-form-field>
+
+
+    <button mat-raised-button color="accent" type="submit">Сохранить организацию</button>
+  </form>
+</mat-card>

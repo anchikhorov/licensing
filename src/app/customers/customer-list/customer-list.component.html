@@ -1,0 +1,44 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-accordion multi="true" *ngIf="customers.length > 0 && !isLoading">
+  <mat-expansion-panel *ngFor="let customer of customers">
+    <mat-expansion-panel-header>
+      
+      {{ customer.orgname}}
+    </mat-expansion-panel-header>
+    <!-- <div class="post-image">
+      <img [src]="post.imagePath" [alt]="post.title">
+    </div> -->
+    <p></p>
+    <mat-label>Название организации:</mat-label>
+    <p>{{ customer.orgname}}</p>
+    
+    <mat-label>Страна:</mat-label>
+    <p>{{ customer.country }}</p>
+    
+    <mat-label>Email ответственного сотрудника:</mat-label>
+    <p>{{ customer.email }}</p>
+    
+    <mat-label>Контактное лицо:</mat-label>
+    <p>{{ customer.firstname }} {{ customer.lastname }}</p>
+
+    <mat-label>Населённый пункт:</mat-label>
+    <p>{{ customer.locality }}</p>
+
+    <mat-label>Адрес:</mat-label>
+    <p>улица {{ customer.street }}, дом {{customer.house}}</p>
+
+    <mat-label>Телефон:</mat-label>
+    <p>{{ customer.phone }}</p>
+
+    <mat-label>Добавлена пользователем:</mat-label>
+    <p>{{ customer.creator }}</p>
+    <!-- <mat-action-row *ngIf="userIsAuthenticated && userId === post.creator"> -->
+    <mat-action-row >
+      <a mat-button color="primary" [routerLink]="['/editcustomer', customer.id]">ИЗМЕНИТЬ</a>
+      <button mat-button color="primary" (click)="onDelete(customer.id)">УДАЛИТЬ</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+<mat-paginator [length]="totalCustomers" [pageSize]="customersPerPage" [pageSizeOptions]="pageSizeOptions"
+  (page)="onChangedPage($event)" *ngIf="customers.length > 0"></mat-paginator>
+<p class="info-text mat-body-1" *ngIf="customers.length <= 0 && !isLoading">Список организаций пуст!</p>

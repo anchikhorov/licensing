@@ -1,0 +1,58 @@
+:host {
+  display: block;
+  margin-top: 1rem;
+}
+
+mat-expansion-panel-header{
+  font-weight: bold;
+  color: rgb(90, 90, 90);
+}
+
+mat-label {
+  /* Other styling... */
+  color: rgb(90, 90, 90);
+  font-weight: bold;
+  text-align: right;
+  clear: both;
+  float:left;
+  margin-right:10px;
+}
+
+p{
+  color: rgb(90, 90, 90);
+}
+
+mat-spinner {
+  margin: auto;
+}
+
+mat-paginator {
+  margin-top: 1rem;
+}
+
+.info-text {
+  text-align: center;
+}
+
+.post-image {
+  width: 100%;
+}
+
+.post-image img {
+  width: 100%;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+mat-expansion-panel, mat-paginator{
+  margin: auto;
+  width: 800px;
+}
+
+/* p{
+  background-color: rgb(224, 231, 238);
+}
+
+h5{
+  padding: 0;
+  background-color: rgb(224, 231, 238);
+} */
