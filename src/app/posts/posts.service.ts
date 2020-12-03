@@ -1,20 +1,14 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-//import { HttpHeaders } from "@angular/common/http";
 import { Subject } from "rxjs";
 import { map } from "rxjs/operators";
 import { Router } from "@angular/router";
 
 import { environment } from "../../environments/environment";
 import { Post } from "./post.model";
-//import { SafeResourceUrl } from '@angular/platform-browser';
 
-const BACKEND_URL = environment.apiUrl + "/posts/";
+const BACKEND_URL = "api/posts/"//environment.apiUrl + "/posts/";
 
-// let headers = new HttpHeaders({
-//    "Content-Type": "text/plain", Accept: "text/plain"  // Auth header
-//   //No other headers needed
-// });
 
 @Injectable({ providedIn: "root" })
 export class PostsService {

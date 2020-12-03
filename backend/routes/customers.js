@@ -15,8 +15,6 @@ router.get("", checkAuth, CustomerController.getCustomers);
 
 router.get("/:id", checkAuth, CustomerController.getCustomer);
 
-//router.get("/download/:id", checkAuth,  PostController.dowloadFile);
-
 router.delete("/:id", CustomerController.deleteCustomer);
 
 

@@ -40,14 +40,7 @@ app.use((req, res, next) => {
   );
   next();
 });
-// app.get("/download", (req, res, next) => {
-//   console.log("C:/Users/alex/licensing/backend/lic_files")
-//   var filePath = "C:/Users/alex/licensing/backend/lic_files"; // Or format the path using the `id` rest param
-//   var fileName = "file.lic"; // The default name the browser will use
 
-//   res.download("C:/Users/alex/licensing/backend/lic_files/file.lic");  
-//   //res.download(filePath, fileName);    
-// });
 app.use("/api/posts", postsRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/customer", customerRoutes);

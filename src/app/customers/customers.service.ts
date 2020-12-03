@@ -1,20 +1,13 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-//import { HttpHeaders } from "@angular/common/http";
 import { Subject } from "rxjs";
 import { map } from "rxjs/operators";
 import { Router } from "@angular/router";
 
-import { environment } from "../../environments/environment";
+//import { environment } from "../../environments/environment";
 import { Customer } from "./customers.model";
-//import { SafeResourceUrl } from '@angular/platform-browser';
 
-const BACKEND_URL = environment.apiUrl + "/customer/";
-
-// let headers = new HttpHeaders({
-//    "Content-Type": "text/plain", Accept: "text/plain"  // Auth header
-//   //No other headers needed
-// });
+const BACKEND_URL = "api/customer/"//environment.apiUrl + "/customer/";
 
 @Injectable({ providedIn: "root" })
 export class CustomersService {
@@ -35,7 +28,6 @@ export class CustomersService {
       )
       .pipe(
         map(customerData => {
-          //console.log("customerData", customerData)
           return {
             customers: customerData.customers.map(customer => {
               return {
@@ -49,7 +41,6 @@ export class CustomersService {
                 street: customer.street,
                 house: customer.house,
                 phone: customer.phone,
-                //expdate: Customer.expdate,
                 creator: customer.creator
               };
             }),
@@ -86,13 +77,6 @@ export class CustomersService {
     }>(BACKEND_URL + id);
   }
 
-  // getLic(id: string){
-  //   //console.log(BACKEND_URL + id + "/download")
-  //   //BACKEND_URL + id + "/download"
-  //   //return this.http.get(BACKEND_URL + "/download/"+ id , { headers: headers, responseType: 'blob'});
-  //   return this.http.get(BACKEND_URL + "/download/"+ id , { responseType: 'blob'});
-  // }
-
   addCustomer(
     orgname: string,
     country: string,
@@ -123,7 +107,6 @@ export class CustomersService {
       });
   }
 
-  //updateCustomer(id: string, title: string, content: string, image: File | string) {
   updateCustomer(
     id: string,
     orgname: string,
@@ -138,21 +121,21 @@ export class CustomersService {
     ) {
     let customerData: Customer | FormData;
     //if (typeof image === "object") {
-    if (typeof "image" === "object") {
-      customerData = new FormData();
-      customerData.append("id", id);
-      customerData.append("orgname", orgname);
-      customerData.append("country", country);
-      customerData.append("email", email);
-      customerData.append("firstname", firstname);
-      customerData.append("lastname", lastname);
-      customerData.append("locality", locality);
-      customerData.append("street", street);
-      customerData.append("house", house);
-      customerData.append("phone", phone);
+    // if (typeof "image" === "object") {
+    //   customerData = new FormData();
+    //   customerData.append("id", id);
+    //   customerData.append("orgname", orgname);
+    //   customerData.append("country", country);
+    //   customerData.append("email", email);
+    //   customerData.append("firstname", firstname);
+    //   customerData.append("lastname", lastname);
+    //   customerData.append("locality", locality);
+    //   customerData.append("street", street);
+    //   customerData.append("house", house);
+    //   customerData.append("phone", phone);
       
-      //customerData.append("creator", creator);
-    } else {
+    //   //customerData.append("creator", creator);
+    // } else {
       customerData = {
         id: id,
         orgname: orgname,
@@ -166,7 +149,7 @@ export class CustomersService {
         phone: phone,
         creator: null
       };
-    }
+    //}
     this.http
       .put(BACKEND_URL + id, customerData)
       .subscribe(response => {
