@@ -48,13 +48,13 @@ licenseGen = (
 
 function setExpirationDate(licversion) {
   let expirationDate = '';
-  moment.locale('ru')
+  //moment.locale('ru')
   switch (licversion) {
     case 'постоянная':
-         expirationDate = moment().add(9999, 'days').calendar()
+         expirationDate = moment().add(9999, 'days').utc()
          break
     case 'на 30 дней':
-         expirationDate = moment().add(30, 'days').calendar()
+         expirationDate = moment().add(30, 'days').utc()
          break
   }       
   return expirationDate;
@@ -92,7 +92,7 @@ exports.createPost = async (req, res, next) => {
       hostid: req.body.hostid,
       expdate: expdate,
       licensefile: licenseFileContent,
-      gendatetime: moment().format("llll"),
+      gendatetime: moment().toISOString(),//moment().format("llll"),
       creator: req.userData.email
     });
     post
