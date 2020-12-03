@@ -36,6 +36,22 @@ exports.createUser = async (req, res, next) => {
 
 }
 
+exports.checkUserRole = async (req, res, next) => {
+  await User.findOne({ role: req.body.role })
+    .then(user => {
+      if (user) {
+        return res.status(202).json({
+          status: true
+        });
+      } else if (!user) {
+        return res.status(202).json({
+          status: false
+        });
+      }
+    })
+
+}
+
 exports.userLogin = async (req, res, next) => {
   let fetchedUser;
   await User.findOne({ email: req.body.email })
@@ -88,10 +104,6 @@ exports.changePassword = async (req, res, next) => {
         });
       }
       bcrypt.hash(req.body.password, 10).then(hash => {
-        // const user = new User({
-        //   email: req.body.email,
-        //   password: hash
-        // });
         user.password = hash
         user
           .save()
@@ -154,20 +166,5 @@ exports.reset = async (req, res, next) => {
 
 }
 
-// exports.reset = async (req, res, next) => {
-//   await User.findOne({ resetToken: req.params.token })
-//     .then(user => {
-//       if (!user) {
-//         return res.status(401).json({
-//           message: "Пользователь не найден!"
-//         });
-//       }
-//       //console.log(user)
-//       //user.resetToken = undefined
-//       //user.resetTokenExpired = undefined 
-//       const id = user._id
-//       return res.status(200).json({ id });
-//     })
 
-// }
 

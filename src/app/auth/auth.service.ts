@@ -5,6 +5,7 @@ import { Subject } from "rxjs";
 
 import { environment } from "../../environments/environment";
 import { AuthData } from "./auth-data.model";
+import { RoleData } from "./role-data.model";
 
 const BACKEND_URL = "api/user/"//environment.apiUrl + "/user/";
 
@@ -15,6 +16,7 @@ export class AuthService {
   private tokenTimer: any;
   private userId: string;
   private authStatusListener = new Subject<boolean>();
+  private isAdminPresent: boolean = false;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -24,6 +26,10 @@ export class AuthService {
 
   getIsAuth() {
     return this.isAuthenticated;
+  }
+
+  getIsAdminPresent() {
+    return this.isAdminPresent;
   }
 
   getUserId() {
@@ -45,6 +51,8 @@ export class AuthService {
       }
     );
   }
+
+
 
   reset(email: string, password?: string) {
     const authData: AuthData = { email: email, password: password };
@@ -106,13 +114,29 @@ export class AuthService {
       );
   }
 
+  checkUserRole(role: string) {
+    //const authData: AuthData = { email: email, password: password };
+    const roleData: RoleData = { role: role };
+    this.http.post(BACKEND_URL + "/checkrole", roleData).subscribe(
+      response => {       
+          this.isAdminPresent = response['status']
+        if (!this.isAdminPresent) {
+          this.router.navigate(["/auth/signup"])
+        }
+      },
+      error => {
+        //console.log("error", error)
+        this.authStatusListener.next(false);
+      }
+    );
+  }
+
   autoAuthUser() {
     const authInformation = this.getAuthData();
-    //console.log("authInformation", authInformation)
-    if (!authInformation) {
+    if (!authInformation ) {
       this.router.navigate(["/auth/login"])
       return;
-    }
+     } 
     const now = new Date();
     const expiresIn = authInformation.expirationDate.getTime() - now.getTime();
     

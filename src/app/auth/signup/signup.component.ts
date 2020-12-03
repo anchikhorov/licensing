@@ -10,6 +10,7 @@ import { AuthService } from "../auth.service";
 })
 export class SignupComponent implements OnInit, OnDestroy {
   isLoading = false;
+  isAdminPresent: boolean;
   private authStatusSub: Subscription;
 
   constructor(public authService: AuthService) {}
@@ -20,6 +21,7 @@ export class SignupComponent implements OnInit, OnDestroy {
         this.isLoading = false;
       }
     );
+    this.isAdminPresent = this.authService.getIsAdminPresent();
   }
 
   onSignup(form: NgForm) {
