@@ -28,10 +28,10 @@
     <p>{{ post.licversion }}</p>
 
     <mat-label>Дата создания:</mat-label>
-    <p>{{ post.gendatetime }}</p>
+    <p>{{ getdatestring(post.gendatetime) }}</p>
 
     <mat-label>Дата окончания:</mat-label>
-    <p>{{ post.expdate }}</p>
+    <p>{{ getdatestring(post.expdate) }}</p>
 
     <mat-label>Host ID:</mat-label>
     <p>{{ post.hostid }}</p>

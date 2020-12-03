@@ -6,6 +6,7 @@ import { Subscription } from "rxjs";
 import { Post } from "../post.model";
 import { PostsService } from "../posts.service";
 import { AuthService } from "../../auth/auth.service";
+import * as moment from 'moment';
 //import { HttpResponse } from '@angular/common/http';
 
 @Component({
@@ -92,6 +93,10 @@ export class PostListComponent implements OnInit, OnDestroy {
     },
     error => console.log('oops', error)
   );
+  }
+
+  getdatestring(date: any) {
+    return moment(date).format('DD.MM.YYYY HH:mm')
   }
 
   ngOnDestroy() {
