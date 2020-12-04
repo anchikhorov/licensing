@@ -22,9 +22,6 @@
       <mat-checkbox *ngIf="this.isAdminPresent">Администратор</mat-checkbox>
       <mat-checkbox  *ngIf="!this.isAdminPresent" class="mat-checkbox-checked" [disabled]="true">Администратор</mat-checkbox>
     </section>
-    <!-- <section *ngIf="!this.isAdminPresent">
-      <mat-checkbox  class="mat-checkbox-checked" [disabled]="true">Администратор</mat-checkbox>
-    </section> -->
     <button mat-raised-button color="accent" type="submit" *ngIf="!isLoading">Регистрация</button>
   </form>
 </mat-card>
