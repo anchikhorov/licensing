@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.authService.checkUserRole("admin")
+    this.authService.checkAdminPresent(true)
     this.authService.autoAuthUser();
     
     // this.errorSub = this.errorService.getErrorListener().subscribe(

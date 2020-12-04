@@ -5,7 +5,7 @@ import { Subject } from "rxjs";
 
 import { environment } from "../../environments/environment";
 import { AuthData } from "./auth-data.model";
-import { RoleData } from "./role-data.model";
+// import { RoleData } from "./role-data.model";
 
 const BACKEND_URL = "api/user/"//environment.apiUrl + "/user/";
 
@@ -40,8 +40,8 @@ export class AuthService {
     return this.authStatusListener.asObservable();
   }
 
-  createUser(email: string, password: string) {
-    const authData: AuthData = { email: email, password: password };
+  createUser(email: string, password: string, admin: boolean) {
+    const authData: AuthData = { email: email, password: password, admin: admin };
     this.http.post(BACKEND_URL + "/signup", authData).subscribe(
       () => {
         this.router.navigate(["/auth/login"]);
@@ -54,8 +54,8 @@ export class AuthService {
 
 
 
-  reset(email: string, password?: string) {
-    const authData: AuthData = { email: email, password: password };
+  reset(email: string, password?: string, admin?: boolean) {
+    const authData: AuthData = { email: email, password: password, admin: admin };
     this.http.post(BACKEND_URL + "/reset", authData).subscribe(
       () => {
         this.router.navigate(["/auth/login"]);
@@ -66,7 +66,7 @@ export class AuthService {
     );
   }
 
-  change(email: string, password?: string) {
+  change(email: string, password?: string, admin?: string) {
     //const authData: AuthData = { email: email, password: password  };
     const userData = {id: this.userId, password: password}
     //console.log(this.userId)
@@ -81,8 +81,8 @@ export class AuthService {
     );
   }
 
-  login(email: string, password: string) {
-    const authData: AuthData = { email: email, password: password };
+  login(email: string, password: string, admin?: boolean) {
+    const authData: AuthData = { email: email, password: password, admin: admin };
     this.http
       .post<{ token: string; expiresIn: number; userId: string }>(
         BACKEND_URL + "/login",
@@ -114,10 +114,10 @@ export class AuthService {
       );
   }
 
-  checkUserRole(role: string) {
-    //const authData: AuthData = { email: email, password: password };
-    const roleData: RoleData = { role: role };
-    this.http.post(BACKEND_URL + "/checkrole", roleData).subscribe(
+  checkAdminPresent(admin: boolean, email?: string, password?: string) {
+    const authData: AuthData = { email: email, password: password, admin: admin };
+    //const roleData: RoleData = { role: role };
+    this.http.post(BACKEND_URL + "/checkrole", authData).subscribe(
       response => {       
           this.isAdminPresent = response['status']
         if (!this.isAdminPresent) {

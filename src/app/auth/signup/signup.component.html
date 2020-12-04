@@ -1,6 +1,6 @@
 <mat-card >
   <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <form (submit)="onPasswordChange(signupForm)" #signupForm="ngForm" *ngIf="!isLoading"
+  <form (submit)="onSignup(signupForm)" #signupForm="ngForm" *ngIf="!isLoading"
     [mustMatch]="['password', 'confirmPassword']">
     <mat-label *ngIf="!this.isAdminPresent">Создайте администратора при первом входе в систему</mat-label>
     <mat-form-field>
@@ -19,8 +19,25 @@
       <mat-error *ngIf="confirmPassword.errors?.mustMatch">Пароли не совпадают.</mat-error>
     </mat-form-field>
     <section >
-      <mat-checkbox *ngIf="this.isAdminPresent">Администратор</mat-checkbox>
-      <mat-checkbox  *ngIf="!this.isAdminPresent" class="mat-checkbox-checked" [disabled]="true">Администратор</mat-checkbox>
+      <mat-checkbox 
+      *ngIf="this.isAdminPresent"
+      name = "admin"
+      [(ngModel)]="admin"
+      [checked]="false" 
+      [class.mat-checkbox-disabled]="false"
+      >
+       <label>Администратор</label>
+     </mat-checkbox>
+      <mat-checkbox 
+      *ngIf="!this.isAdminPresent"
+       name = "admin"
+       [(ngModel)]="admin"
+       [checked]="true" 
+       [class.mat-checkbox-disabled]="true"
+       disabled>
+        <label>Администратор</label>
+      </mat-checkbox>
+
     </section>
     <button mat-raised-button color="accent" type="submit" *ngIf="!isLoading">Регистрация</button>
   </form>

@@ -14,9 +14,15 @@ exports.createUser = async (req, res, next) => {
         });
       }
       bcrypt.hash(req.body.password, 10).then(hash => {
+        let role = "basic"
+        console.log("req.body.admin", req.body.admin)
+        if (req.body.admin){
+            role = "admin"
+        } 
         const user = new User({
           email: req.body.email,
-          password: hash
+          password: hash,
+          role: role
         });
         user
           .save()
@@ -36,8 +42,13 @@ exports.createUser = async (req, res, next) => {
 
 }
 
-exports.checkUserRole = async (req, res, next) => {
-  await User.findOne({ role: req.body.role })
+exports.checkAdminPresent = async (req, res, next) => {
+  let role = '';
+  //console.log("req.body", req.body)
+  if(req.body.admin){
+    role = "admin"
+  }
+  await User.findOne({ role: role })
     .then(user => {
       if (user) {
         return res.status(202).json({

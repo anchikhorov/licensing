@@ -12,6 +12,6 @@ router.post("/reset", UserController.reset);
 
 router.post("/change", UserController.changePassword);
 
-router.post("/checkrole", UserController.checkUserRole);
+router.post("/checkrole", UserController.checkAdminPresent);
 
 module.exports = router;
