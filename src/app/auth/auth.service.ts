@@ -54,7 +54,8 @@ export class AuthService {
         
       },
       error => {
-        this.authStatusListener.next(false);
+        //console.log("error", error)
+        this.authStatusListener.next(true);
       }
     );
   }

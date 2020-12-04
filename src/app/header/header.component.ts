@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.userIsAuthenticated = isAuthenticated;
         this.role = this.authService.getUserRole();
         console.log("this.role",this.role)
-        //console.log("header auth", isAuthenticated)
+        console.log("header auth", isAuthenticated)
       });
   }
 

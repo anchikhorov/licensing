@@ -9,7 +9,7 @@ exports.createUser = async (req, res, next) => {
   await User.findOne({ email: req.body.email })
     .then(user => {
       if (user) {
-        return res.status(401).json({
+        return res.status(409).json({
           message: "Пользователь с таким e-mail уже зарегистрирован!"
         });
       }
