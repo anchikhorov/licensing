@@ -25,8 +25,8 @@
     <li *ngIf="!userIsAuthenticated">
       <a mat-button routerLink="/auth/reset" routerLinkActive="mat-accent">Забыли пароль?</a>
     </li>
-    <li *ngIf="!userIsAuthenticated">
-      <a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent">Регистрация</a>
+    <li *ngIf="userIsAuthenticated && role=='admin'">
+      <a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent">Регистрация пользователя</a>
     </li>
     <li *ngIf="userIsAuthenticated">
       <button mat-button (click)="onLogout()">Выйти</button>

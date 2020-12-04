@@ -17,6 +17,7 @@ export class AuthService {
   private userId: string;
   private authStatusListener = new Subject<boolean>();
   private isAdminPresent: boolean = false;
+  private role = '';
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -36,6 +37,10 @@ export class AuthService {
     return this.userId;
   }
 
+  getUserRole(){
+    return this.role;
+  }
+
   getAuthStatusListener() {
     return this.authStatusListener.asObservable();
   }
@@ -44,7 +49,9 @@ export class AuthService {
     const authData: AuthData = { email: email, password: password, admin: admin };
     this.http.post(BACKEND_URL + "/signup", authData).subscribe(
       () => {
+        this.isAdminPresent = true;
         this.router.navigate(["/auth/login"]);
+        
       },
       error => {
         this.authStatusListener.next(false);
@@ -84,13 +91,12 @@ export class AuthService {
   login(email: string, password: string, admin?: boolean) {
     const authData: AuthData = { email: email, password: password, admin: admin };
     this.http
-      .post<{ token: string; expiresIn: number; userId: string }>(
+      .post<{ token: string; expiresIn: number; userId: string; role: string }>(
         BACKEND_URL + "/login",
         authData
       )
       .subscribe(
         response => {
-          //console.log(response)
           const token = response.token;
           this.token = token;
           if (token) {
@@ -98,6 +104,8 @@ export class AuthService {
             this.setAuthTimer(expiresInDuration);
             this.isAuthenticated = true;
             this.userId = response.userId;
+            this.role = response.role
+            //console.log("this.role",this.role)
             this.authStatusListener.next(true);
             const now = new Date();
             const expirationDate = new Date(

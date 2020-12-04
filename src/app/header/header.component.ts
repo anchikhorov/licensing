@@ -10,6 +10,7 @@ import { AuthService } from "../auth/auth.service";
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false;
+  role = '';
   private authListenerSubs: Subscription;
 
   constructor(private authService: AuthService) {}
@@ -20,6 +21,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .getAuthStatusListener()
       .subscribe(isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
+        this.role = this.authService.getUserRole();
+        console.log("this.role",this.role)
         //console.log("header auth", isAuthenticated)
       });
   }
