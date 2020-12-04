@@ -1,7 +1,8 @@
-<mat-card *ngIf="this.isAdminPresent">
+<mat-card >
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <form (submit)="onPasswordChange(signupForm)" #signupForm="ngForm" *ngIf="!isLoading"
     [mustMatch]="['password', 'confirmPassword']">
+    <mat-label *ngIf="!this.isAdminPresent">Создайте администратора при первом входе в систему</mat-label>
     <mat-form-field>
       <input matInput name="email" ngModel type="email" placeholder="E-Mail" #emailInput="ngModel" required email>
       <mat-error *ngIf="emailInput.invalid">Введите email.</mat-error>
@@ -17,37 +18,13 @@
       <mat-error *ngIf="confirmPassword.invalid && !confirmPassword.errors.mustMatch">Повторите пароль.</mat-error>
       <mat-error *ngIf="confirmPassword.errors?.mustMatch">Пароли не совпадают.</mat-error>
     </mat-form-field>
-    <button mat-raised-button color="accent" type="submit" *ngIf="!isLoading">Регистрация</button>
-  </form>
-</mat-card>
-<mat-card *ngIf="!this.isAdminPresent">
-  <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <form (submit)="onPasswordChange(signupForm)" #signupForm="ngForm" *ngIf="!isLoading"
-    [mustMatch]="['password', 'confirmPassword']">
-    <mat-label>Создайте администратора при первом входе в систему</mat-label>
-    <mat-form-field>
-      <input matInput name="email" ngModel type="email" placeholder="E-Mail администратора" #emailInput="ngModel"
-        required email>
-      <mat-error *ngIf="emailInput.invalid">Введите email администратора.</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input type="password" name="password" ngModel matInput placeholder="Введите пароль администратора"
-        #passwordInput="ngModel" required>
-      <mat-error *ngIf="passwordInput.invalid">Введите новый пароль администратора.</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input type="password" name="confirmPassword" ngModel matInput placeholder="Повторите пароль администратора"
-        #confirmPassword="ngModel" required>
-      <mat-error *ngIf="confirmPassword.invalid && !confirmPassword.errors.mustMatch">Повторите пароль администратора.
-      </mat-error>
-      <mat-error *ngIf="confirmPassword.errors?.mustMatch">Пароли не совпадают.</mat-error>
-    </mat-form-field>
     <section >
-      <mat-checkbox  class="mat-checkbox-checked" [disabled]="true">Администратор</mat-checkbox>
-      <!-- <mat-checkbox  [disabled]="true">Администратор</mat-checkbox> -->
-      <!-- <mat-checkbox class="example-margin" [(ngModel)]="checked">Checked</mat-checkbox>
-      <mat-checkbox class="example-margin" [(ngModel)]="indeterminate">Indeterminate</mat-checkbox> -->
+      <mat-checkbox *ngIf="this.isAdminPresent">Администратор</mat-checkbox>
+      <mat-checkbox  *ngIf="!this.isAdminPresent" class="mat-checkbox-checked" [disabled]="true">Администратор</mat-checkbox>
     </section>
+    <!-- <section *ngIf="!this.isAdminPresent">
+      <mat-checkbox  class="mat-checkbox-checked" [disabled]="true">Администратор</mat-checkbox>
+    </section> -->
     <button mat-raised-button color="accent" type="submit" *ngIf="!isLoading">Регистрация</button>
   </form>
 </mat-card>
