@@ -18,6 +18,7 @@ export class AuthService {
   private authStatusListener = new Subject<boolean>();
   private isAdminPresent: boolean = false;
   private role = '';
+  private email = '';
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -39,6 +40,10 @@ export class AuthService {
 
   getUserRole(){
     return this.role;
+  }
+
+  getUserEmail(){
+    return this.email;
   }
 
   getAuthStatusListener() {
@@ -93,7 +98,7 @@ export class AuthService {
   login(email: string, password: string, admin?: boolean) {
     const authData: AuthData = { email: email, password: password, admin: admin };
     this.http
-      .post<{ token: string; expiresIn: number; userId: string; role: string }>(
+      .post<{ token: string; expiresIn: number; userId: string; role: string, email: string }>(
         BACKEND_URL + "/login",
         authData
       )
@@ -107,6 +112,7 @@ export class AuthService {
             this.isAuthenticated = true;
             this.userId = response.userId;
             this.role = response.role
+            this.email = response.email
             //console.log("this.role",this.role)
             this.authStatusListener.next(true);
             const now = new Date();
@@ -114,7 +120,7 @@ export class AuthService {
               now.getTime() + expiresInDuration * 1000
             );
             //console.log(expirationDate);
-            this.saveAuthData(token, expirationDate, this.userId, this.role);
+            this.saveAuthData(token, expirationDate, this.userId, this.role, this.email);
             this.router.navigate(["/liclist"]);
           }
         },
@@ -155,6 +161,7 @@ export class AuthService {
       this.isAuthenticated = true;
       this.userId = authInformation.userId;
       this.role = authInformation.role;
+      this.email = authInformation.email;
       this.setAuthTimer(expiresIn / 1000);
       this.authStatusListener.next(true);
       this.router.navigate(["/liclist"]);
@@ -181,11 +188,12 @@ export class AuthService {
     }, duration * 1000);
   }
 
-  private saveAuthData(token: string, expirationDate: Date, userId: string, role: string) {
+  private saveAuthData(token: string, expirationDate: Date, userId: string, role: string, email: string) {
     localStorage.setItem("token", token);
     localStorage.setItem("expiration", expirationDate.toISOString());
     localStorage.setItem("userId", userId);
-    localStorage.setItem("role", role)
+    localStorage.setItem("role", role);
+    localStorage.setItem("email", email);
   }
 
   private clearAuthData() {
@@ -193,6 +201,7 @@ export class AuthService {
     localStorage.removeItem("expiration");
     localStorage.removeItem("userId");
     localStorage.removeItem("role");
+    localStorage.removeItem("email");
   }
 
   private getAuthData() {
@@ -200,6 +209,7 @@ export class AuthService {
     const expirationDate = localStorage.getItem("expiration");
     const userId = localStorage.getItem("userId");
     const role = localStorage.getItem("role");
+    const email = localStorage.getItem("email");
     if (!token || !expirationDate) {
       return;
     }
@@ -207,7 +217,8 @@ export class AuthService {
       token: token,
       expirationDate: new Date(expirationDate),
       userId: userId,
-      role: role
+      role: role,
+      email: email
     };
   }
 }

@@ -94,7 +94,8 @@ exports.userLogin = async (req, res, next) => {
         token: token,
         expiresIn: 3600,
         userId: fetchedUser._id,
-        role: fetchedUser.role 
+        role: fetchedUser.role, 
+        email: fetchedUser.email
       });
     })
     .catch(err => {

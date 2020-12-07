@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
   <span>
-    <a *ngIf="userIsAuthenticated" routerLink="/liclist">Лицензии</a>
+    <a *ngIf="userIsAuthenticated" routerLink="/liclist">Лицензии {{email}} {{role == 'admin' ?  "администратор" : "базовый" }}</a>
     <a *ngIf="!userIsAuthenticated" routerLink="/auth/login">Лицензии</a>
   </span>
   <span class="spacer"></span>
