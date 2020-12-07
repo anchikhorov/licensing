@@ -8,7 +8,8 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatDialogModule} from "@angular/material/dialog";
-import {MatCheckboxModule} from '@angular/material/checkbox'
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatMenuModule} from '@angular/material/menu';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox'
     MatProgressSpinnerModule,
     MatPaginatorModule,
     MatDialogModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatMenuModule
   ]
 })
 export class AngularMaterialModule {}

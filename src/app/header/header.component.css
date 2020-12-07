@@ -4,15 +4,36 @@ ul {
   margin: 0;
 }
 
-a {
+.no-clickable {
+  visibility: visible;
   text-decoration: none;
-  color: white;
+  pointer-events: none;
+  cursor: default;  
 }
 
-ul {
+.logo a{
+ text-decoration: none;
+ color: white;
+}
+
+
+.pagelabel{
   display: flex;
+  justify-content:flex-start; 
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  /* margin-right: 100px; */
 }
 
 .spacer {
   flex: 1 1 auto;
 }
+
+.user {
+  font-size: 14px;
+}
+
+/* .menu{
+  margin-left: 200px;
+} */

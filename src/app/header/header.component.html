@@ -1,35 +1,84 @@
 <mat-toolbar color="primary">
-  <span>
-    <a *ngIf="userIsAuthenticated" routerLink="/liclist">Лицензии {{email}} {{role == 'admin' ?  "администратор" : "базовый" }}</a>
+  <span class="logo">
+    <a *ngIf="userIsAuthenticated" routerLink="/liclist">Лицензии </a>
     <a *ngIf="!userIsAuthenticated" routerLink="/auth/login">Лицензии</a>
   </span>
-  <span class="spacer"></span>
-  <ul>
-    
-    <li *ngIf="userIsAuthenticated">
-      <a mat-button routerLink="/liclist" routerLinkActive="mat-accent">Список лицензий</a>
-    </li>
-    <li *ngIf="userIsAuthenticated">
-      <a mat-button routerLink="/create" routerLinkActive="mat-accent">Новая лицензия</a>
-    </li>
-    <li *ngIf="userIsAuthenticated">
-      <a mat-button routerLink="/customerlist" routerLinkActive="mat-accent">Список организаций</a>
-    </li>
-    <li *ngIf="userIsAuthenticated">
-      <a mat-button routerLink="/addcustomer" routerLinkActive="mat-accent">Добавить организацию</a>
-    </li>
+  <!-- <span class="spacer"></span> -->
 
-    <li *ngIf="userIsAuthenticated">
-      <a mat-button routerLink="/auth/change" routerLinkActive="mat-accent">Изменить пароль</a>
-    </li>
-    <li *ngIf="!userIsAuthenticated">
+  <div *ngIf="userIsAuthenticated" class="pagelabel">
+    
+    <a mat-button routerLink="/liclist" routerLinkActive="mat-accent" #liclist="routerLinkActive"
+      class="no-clickable">
+      <div>
+        <span *ngIf="liclist.isActive">Список лицензий</span>
+      </div>
+    </a>
+    <a mat-button routerLink="/create" routerLinkActive="mat-accent" #create="routerLinkActive" class="no-clickable">
+      <div>
+        <span *ngIf="create.isActive">Новая лицензия</span>
+      </div>
+    </a>
+
+    <a mat-button routerLink="/customerlist" routerLinkActive="mat-accent" #customerlist="routerLinkActive" class="no-clickable">
+      <div>
+        <span *ngIf="customerlist.isActive">Список организаций</span>
+      </div>
+    </a>
+
+    <a mat-button routerLink="/addcustomer" routerLinkActive="mat-accent" #addcustomer="routerLinkActive" class="no-clickable">
+      <div>
+        <span *ngIf="addcustomer.isActive">Добавить организацию</span>
+      </div>
+    </a>
+
+    <a mat-button routerLink="/auth/change" routerLinkActive="mat-accent" #change="routerLinkActive" class="no-clickable">
+      <div>
+        <span *ngIf="change.isActive">Изменить пароль</span>
+      </div>
+    </a>
+  <!-- <div *ngIf="role=='admin'"> -->
+    <a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent" #signup="routerLinkActive" class="no-clickable">  
+      <div>
+        <span *ngIf="signup.isActive">Регистрация пользователя</span>
+      </div>
+    </a>
+  <!-- </div> -->
+</div >
+
+<span class="spacer"></span>
+
+<div class="menu">
+  <button *ngIf="userIsAuthenticated" id="menu" mat-button [matMenuTriggerFor]="topLavelMenu">Меню</button>
+  <mat-menu #topLavelMenu="matMenu">
+    <button mat-menu-item [matMenuTriggerFor]="licenses">Лицензии</button>
+    <button mat-menu-item [matMenuTriggerFor]="customers">Организации</button>
+    <button mat-menu-item [matMenuTriggerFor]="users" *ngIf="userIsAuthenticated && role=='admin'">Пользователи</button>
+    <a mat-menu-item routerLink="/auth/change">Изменить пароль</a>
+    <button mat-menu-item (click)="onLogout()">Выйти</button>
+  </mat-menu>
+
+  <mat-menu #licenses="matMenu">
+    <a mat-menu-item routerLink="/liclist">Список лицензий</a>
+    <a mat-menu-item routerLink="/create">Новая лицензия</a>
+  </mat-menu>
+  <mat-menu #customers="matMenu">
+    <a mat-menu-item routerLink="/customerlist">Список организаций</a>
+    <a mat-menu-item routerLink="/addcustomer">Добавить организацию</a>
+  </mat-menu>
+  <mat-menu #users="matMenu">
+    <a mat-menu-item routerLink="/auth/signup" routerLinkActive="active-link">Регистрация пользователя</a>
+  </mat-menu>
+</div>
+
+  <!-- <span class="spacer"></span> -->
+
+  <div>
+    <span *ngIf="userIsAuthenticated" class="user">{{email}} : {{role == 'admin' ?  "администратор" : "базовый" }}</span>
+  </div>
+ 
+  <ul *ngIf="!userIsAuthenticated">
+    <li >
       <a mat-button routerLink="/auth/reset" routerLinkActive="mat-accent">Забыли пароль?</a>
-    </li>
-    <li *ngIf="userIsAuthenticated && role=='admin'">
-      <a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent">Регистрация пользователя</a>
-    </li>
-    <li *ngIf="userIsAuthenticated">
-      <button mat-button (click)="onLogout()">Выйти</button>
     </li>
   </ul>
 </mat-toolbar>
