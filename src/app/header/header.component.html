@@ -4,40 +4,40 @@
     <a *ngIf="!userIsAuthenticated" routerLink="/auth/login">Лицензии</a>
   </span>
   <!-- <span class="spacer"></span> -->
-
+<div class="center">
   <div *ngIf="userIsAuthenticated" class="pagelabel">
     
-    <a mat-button routerLink="/liclist" routerLinkActive="mat-accent" #liclist="routerLinkActive"
+    <a mat-button routerLink="/liclist" routerLinkActive #liclist="routerLinkActive"
       class="no-clickable">
       <div>
         <span *ngIf="liclist.isActive">Список лицензий</span>
       </div>
     </a>
-    <a mat-button routerLink="/create" routerLinkActive="mat-accent" #create="routerLinkActive" class="no-clickable">
+    <a mat-button routerLink="/create" routerLinkActive #create="routerLinkActive" class="no-clickable">
       <div>
         <span *ngIf="create.isActive">Новая лицензия</span>
       </div>
     </a>
 
-    <a mat-button routerLink="/customerlist" routerLinkActive="mat-accent" #customerlist="routerLinkActive" class="no-clickable">
+    <a mat-button routerLink="/customerlist" routerLinkActive #customerlist="routerLinkActive" class="no-clickable">
       <div>
         <span *ngIf="customerlist.isActive">Список организаций</span>
       </div>
     </a>
 
-    <a mat-button routerLink="/addcustomer" routerLinkActive="mat-accent" #addcustomer="routerLinkActive" class="no-clickable">
+    <a mat-button routerLink="/addcustomer" routerLinkActive #addcustomer="routerLinkActive" class="no-clickable">
       <div>
         <span *ngIf="addcustomer.isActive">Добавить организацию</span>
       </div>
     </a>
 
-    <a mat-button routerLink="/auth/change" routerLinkActive="mat-accent" #change="routerLinkActive" class="no-clickable">
+    <a mat-button routerLink="/auth/change" routerLinkActive #change="routerLinkActive" class="no-clickable">
       <div>
         <span *ngIf="change.isActive">Изменить пароль</span>
       </div>
     </a>
   <!-- <div *ngIf="role=='admin'"> -->
-    <a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent" #signup="routerLinkActive" class="no-clickable">  
+    <a mat-button routerLink="/auth/signup" routerLinkActive #signup="routerLinkActive" class="no-clickable">  
       <div>
         <span *ngIf="signup.isActive">Регистрация пользователя</span>
       </div>
@@ -45,7 +45,7 @@
   <!-- </div> -->
 </div >
 
-<span class="spacer"></span>
+<!-- <span class="spacer"></span> -->
 
 <div class="menu">
   <button *ngIf="userIsAuthenticated" id="menu" mat-button [matMenuTriggerFor]="topLavelMenu">Меню</button>
@@ -66,13 +66,13 @@
     <a mat-menu-item routerLink="/addcustomer">Добавить организацию</a>
   </mat-menu>
   <mat-menu #users="matMenu">
-    <a mat-menu-item routerLink="/auth/signup" routerLinkActive="active-link">Регистрация пользователя</a>
+    <a mat-menu-item routerLink="/auth/signup" routerLinkActive>Регистрация пользователя</a>
   </mat-menu>
 </div>
-
+</div>
   <!-- <span class="spacer"></span> -->
 
-  <div>
+  <div class="userdiv">
     <span *ngIf="userIsAuthenticated" class="user">{{email}} : {{role == 'admin' ?  "администратор" : "базовый" }}</span>
   </div>
  
